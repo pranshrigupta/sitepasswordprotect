@@ -1,32 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Protected Project</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 100px; }
-    #box { max-width: 300px; margin: auto; }
-    input { padding: 10px; width: 80%; margin-bottom: 10px; }
-    button { padding: 10px 20px; cursor: pointer; }
+    body { font-family: Inter, system-ui, Arial, sans-serif; display:grid; place-items:center; min-height:100vh; background:#0b0b0c; color:#fff; }
+    .box { width: min(360px, 90vw); background:#141416; padding:24px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+    h2 { margin: 0 0 12px; font-size:20px; }
+    p { opacity:.75; margin:0 0 16px; font-size:14px; }
+    input, button { width:100%; padding:12px 14px; border-radius:12px; border:1px solid #2a2b2f; background:#0f0f11; color:#fff; }
+    input { margin-bottom:12px; }
+    button { cursor:pointer; }
+    .hint { margin-top:10px; font-size:12px; opacity:.6; text-align:center; }
   </style>
 </head>
 <body>
-  <div id="box">
-    <h2>Enter Password to View Project</h2>
-    <input type="password" id="pw" placeholder="Password">
-    <br>
-    <button onclick="unlock()">Unlock</button>
+  <div class="box" role="dialog" aria-label="Password gate">
+    <h2>Enter password</h2>
+    <p>This case study is private. Please enter the access password.</p>
+    <input type="password" id="pw" placeholder="Password" autocomplete="current-password" />
+    <button id="submit">Unlock</button>
+    <div class="hint">Having trouble? Email me for access.</div>
   </div>
 
   <script>
-    function unlock() {
-      const pass = document.getElementById("pw").value;
-      if (pass === "Excelsior123") {
-        window.location.href = "https://your-hidden-project-link.com";
+    const PASSWORD = "Excelsior123"; // <-- change me
+    const REDIRECT = "https://your-link-to-project"; // Google Doc/Slides/PDF/Notion/etc
+
+    document.getElementById("submit").addEventListener("click", () => {
+      const input = document.getElementById("pw").value;
+      if (input === PASSWORD) {
+        location.href = REDIRECT;
       } else {
-        alert("❌ Incorrect password");
+        alert("Incorrect password");
       }
-    }
+    });
+
+    // Enter to submit
+    document.getElementById("pw").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("submit").click();
+    });
   </script>
 </body>
 </html>
