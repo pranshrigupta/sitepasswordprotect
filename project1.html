@@ -4,44 +4,114 @@
   <meta charset="UTF-8" />
   <meta name="robots" content="noindex,nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Protected Project</title>
+  <title>Private Case Study – Project 1</title>
   <style>
-    body { font-family: Inter, system-ui, Arial, sans-serif; display:grid; place-items:center; min-height:100vh; background:#0b0b0c; color:#fff; }
-    .box { width: min(360px, 90vw); background:#141416; padding:24px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.35); }
-    h2 { margin: 0 0 12px; font-size:20px; }
-    p { opacity:.75; margin:0 0 16px; font-size:14px; }
-    input, button { width:100%; padding:12px 14px; border-radius:12px; border:1px solid #2a2b2f; background:#0f0f11; color:#fff; }
-    input { margin-bottom:12px; }
-    button { cursor:pointer; }
-    .hint { margin-top:10px; font-size:12px; opacity:.6; text-align:center; }
+    :root {
+      --bg: #ffffff;        /* Page background */
+      --panel: #ffffff;     /* Card background */
+      --fg: #000000;        /* Text color */
+      --muted: #444444;     /* Subtle text */
+      --brand: #93c47d;     /* CTA color */
+      --error: #ef4444;     /* Error color */
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--fg);
+    }
+    .box {
+      width: min(380px, 92vw);
+      background: var(--panel);
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      text-align: center;
+    }
+    .lock {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 20px;
+      margin: 0 0 8px;
+      color: var(--fg);
+    }
+    p {
+      font-size: 14px;
+      margin: 0 0 20px;
+      color: var(--muted);
+    }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      background: #fff;
+      color: var(--fg);
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      background: var(--brand);
+      color: #000000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    button:hover {
+      background: #7fb569; /* Slightly darker green */
+    }
+    .error {
+      margin-top: 10px;
+      color: var(--error);
+      font-size: 13px;
+      min-height: 1.2em;
+    }
+    .hint {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
-  <div class="box" role="dialog" aria-label="Password gate">
-    <h2>Enter password</h2>
-    <p>This case study is private. Please enter the access password.</p>
-    <input type="password" id="pw" placeholder="Password" autocomplete="current-password" />
-    <button id="submit">Unlock</button>
-    <div class="hint">Having trouble? Email me for access.</div>
+  <div class="box">
+    <div class="lock">🔒</div>
+    <h1>This project is private.</h1>
+    <p>Enter the password for access.</p>
+    <input type="password" id="pw" placeholder="Password" />
+    <button id="submit">Unlock project</button>
+    <div id="error" class="error"></div>
+    <div class="hint">If you need access, contact me directly.</div>
   </div>
 
   <script>
-    const PASSWORD = "Excelsior123"; // <-- change me
-    const REDIRECT = "https://your-link-to-project"; // Google Doc/Slides/PDF/Notion/etc
+    const PASSWORD = "Excelsior"; // change me
+    const REDIRECT = "https://sites.google.com/view/pranshrisportfolio/work/conversation-design"; // project link
 
-    document.getElementById("submit").addEventListener("click", () => {
+    document.getElementById("submit").addEventListener("click", unlock);
+    document.getElementById("pw").addEventListener("keydown", e => {
+      if (e.key === "Enter") unlock();
+    });
+
+    function unlock() {
       const input = document.getElementById("pw").value;
       if (input === PASSWORD) {
         location.href = REDIRECT;
       } else {
-        alert("Incorrect password");
+        document.getElementById("error").textContent = "Incorrect password.";
       }
-    });
-
-    // Enter to submit
-    document.getElementById("pw").addEventListener("keydown", (e) => {
-      if (e.key === "Enter") document.getElementById("submit").click();
-    });
+    }
   </script>
 </body>
 </html>
