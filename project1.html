@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Protected Project</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 100px; }
+    #box { max-width: 300px; margin: auto; }
+    input { padding: 10px; width: 80%; margin-bottom: 10px; }
+    button { padding: 10px 20px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <h2>Enter Password to View Project</h2>
+    <input type="password" id="pw" placeholder="Password">
+    <br>
+    <button onclick="unlock()">Unlock</button>
+  </div>
+
+  <script>
+    function unlock() {
+      const pass = document.getElementById("pw").value;
+      if (pass === "Excelsior123") {
+        window.location.href = "https://your-hidden-project-link.com";
+      } else {
+        alert("❌ Incorrect password");
+      }
+    }
+  </script>
+</body>
+</html>
